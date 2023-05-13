@@ -1,0 +1,37 @@
+body {
+    font-size: xx-large;
+}
+
+.text-responsive {
+    font-size: calc(100% + 1vw + 1vh);
+}
+
+.error {
+    color: red;
+    font-size: small;
+}
+
+label {
+    font-size: calc(70% + 1vw + 1vh);
+}
+
+h1 {
+    font-size: calc(200% + 1vw + 1vh);
+    text-align: center;
+}
+h2 {
+    font-size: calc(150% + 1vw + 1vh);
+    text-align: center;
+}
+
+input, select {
+    font-size: 58px !important;
+}
+
+input .tagdisplay {
+    font-size: 12px !important;
+}
+
+input[type='radio'] { 
+    transform: scale(2.5); 
+}

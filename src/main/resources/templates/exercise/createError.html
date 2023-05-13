@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments/site :: head(pageTitle='Exercise created!')}"> 
+        <title>Add an exercise</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1>Exercise couldn't be created, </h1>
+        <p>Name: <span readonly="true" type="text" th:text="${exercise.name}" /></p>
+        <p>Difficulty: <span readonly="true" type="text" th:text="${exercise.difficulty}" /></p>
+        <p>Tags: <span readonly="true" type="text" th:text="${exercise.tags}" /></p>
+
+    </body>
+</html>

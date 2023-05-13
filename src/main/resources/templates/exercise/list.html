@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head(pageTitle='Look at all the exercises &lt;3')}"> 
+    <title>Add an exercise</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div class="container" hx-boost="false">
+        <div th:replace="~{fragments/site :: header}"></div>
+        <div th:replace="~{fragments/exercise :: subheader}"></div>
+        <h2>Look at everything you can do!</h2>
+        <div class="card" th:each="exercise: ${exercises}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title" th:text="${exercise.name}"></h5>
+                        <div th:replace="~{fragments/site :: tags(tags=${exercise.tags})}" />
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-begin align-items-center col-8">
+                            <span class="card-text">Difficulty: <span th:text="${exercise.difficulty}"></span></span>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center col-4">
+                            <a class="mr-3" th:href="@{/exercise/edit/{id}(id=${exercise.id})}">&#9999;&#65039;</a>
+                        </div>
+                    </div>
+              </div>
+        </div>
+</body>
+</html>

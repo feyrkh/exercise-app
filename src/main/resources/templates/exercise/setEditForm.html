@@ -1,0 +1,35 @@
+<div class="card">
+    <table>
+        <tr th:if="${exercise.weightTrackType != null and exercise.weightTrackType.name() != 'NONE'}">
+            <td><label>Weight:</label></td>
+            <td class="col-8"><input class="col-8" type="text" name="desiredWeight" value="30" pattern="[0-9]+(\.[0-9]+)?" title="Please enter numeric values only" required/></td>
+            <td><label th:text="${exercise.weightTrackType.getUnit(2)}"></label></td>
+        </tr>
+        <tr th:if="${exercise.distanceTrackType != null and exercise.distanceTrackType.name() != 'NONE'}">
+            <td><label>Distance:</label></td>
+            <td class="col-4"><input class="col-8" type="text" name="desiredDistance" value="30" pattern="[0-9]+(\.[0-9]+)?" title="Please enter numeric values only" required/></td>
+            <td><label th:text="${exercise.distanceTrackType.getUnit(2)}"></label></td>
+        </tr>
+        <tr th:if="${exercise.timeTrackType != null and exercise.timeTrackType.name() != 'NONE'}">
+            <td><label>Time:</label></td>
+            <td class="col-4"><input class="col-8" type="text" name="desiredTime" value="30" pattern="[0-9]+(\.[0-9]+)?" title="Please enter numeric values only" required/></td>
+            <td><label th:text="${exercise.timeTrackType.getUnit(2)}"></label></td>
+        </tr>
+        <tr th:if="${exercise.repTrackType != null and exercise.repTrackType.name() != 'NONE'}" class="mt-5">
+            <td><label>Reps:</label></td>
+            <td class="col-4"><input class="col-8" type="text" name="desiredReps" value="30" pattern="[0-9]+(\.[0-9]+)?" title="Please enter numeric values only" required/></td>
+            <td><label th:text="${exercise.repTrackType.getUnit(2)}"></label></td>
+        </tr>
+        <tr>
+            <td><label>Sets:</label></td>
+            <td class="col-4">
+                <select name="setCount" value="4">
+                    <option value="4">x 4</option>
+                    <option value="3">x 3</option>
+                    <option value="2">x 2</option>
+                    <option value="1">x 1</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>

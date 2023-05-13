@@ -1,0 +1,114 @@
+<div th:fragment="subheader">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="/workout">Workouts</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/exercise">List exercises</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/exercise/create">Create exercise</a>
+            </li>
+        </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+      </div>
+    </nav>
+  </div>
+
+    <div th:fragment="selectEnum" class="form-group mt-5 card">
+        <div class="text-center">
+            <label th:text="${label}" th:for="${id}" />
+        </div> 
+        <div class="d-flex justify-content-around">
+            <span th:each="value : ${values}">
+                <input class="form-check-inline" type="radio" th:id="${id} + ${value}" th:name="${id}" th:value="${value}" th:checked="${(value == default && selected == null) || selected == value}">
+                <label class="form-check-label mr-4 ml-2" th:for="${id} + ${value}" th:text="${value.toString().toLowerCase()}"></label>
+            </span>
+        </div>
+    </div>
+
+
+
+
+    <div th:fragment="editPage">
+                <!-- <p>Id: <input type="text" th:field="*{id}" /></p> -->
+                <div class="form-group   input-group-lg">
+                    <div class="text-center">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="d-flex justify-content-around">
+                        <input id="name" type="text" class="form-control bigtext h-100" th:placeholder="${exampleName}" th:field="*{name}" />
+                        <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="text-center">
+                        <label for="difficulty">Difficulty</label>
+                    </div>
+                    <div class="input-group d-flex justify-content-around">
+                        <span>
+                            <input id="difficulty1" type="radio" class="form-check-inline" value="1" th:field="*{difficulty}" />
+                            <label for="difficulty1" class="form-check-label mr-4 ml-2">So easy!</label>
+                        </span>
+                        <span>
+                            <input id="difficulty2" type="radio" class="form-check-inline" value="2" th:field="*{difficulty}" />
+                            <label for="difficulty2"class="form-check-label mr-4 ml-2">Good burn!</label>
+                        </span>
+                        <span>
+                            <input id="difficulty3" type="radio" class="form-check-inline" value="3" th:field="*{difficulty}" />
+                            <label for="difficulty3" class="form-check-label mr-4 ml-2">OMG ;_;</label>
+                        </span>
+                    </div>
+                    <p th:if="${#fields.hasErrors('difficulty')}" th:errorclass="error" th:errors="*{difficulty}"></p>
+                </div>
+                <div class="form-group ">
+                    <div class="text-center">
+                        <label for="tags">Tags</label>
+                    </div>
+                    <div class="input-group d-flex justify-content-around">
+                        <input id="tags" type="text" data-role="tagsinput" class="form-control form-control-tag" th:field="*{joinedTags}" />
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" id="description" th:field="*{description}"></textarea>
+                </div>
+            
+                <div th:replace="fragments/exercise::selectEnum(id='repTrackType', values=${RepTrackingType.values()}, label='Rep Tracking', default=${RepTrackingType.NONE}, selected=${exercise.repTrackType})"></div>
+                <div th:replace="fragments/exercise::selectEnum(id='weightTrackType', values=${WeightTrackingType.values()}, label='Weight Tracking', default=${WeightTrackingType.NONE}, selected=${exercise.weightTrackType})"></div>
+                <div th:replace="fragments/exercise::selectEnum(id='timeTrackType', values=${TimeTrackingType.values()}, label='Time Tracking', default=${TimeTrackingType.NONE}, selected=${exercise.timeTrackType})"></div>
+                <div th:replace="fragments/exercise::selectEnum(id='distanceTrackType', values=${DistanceTrackingType.values()}, label='Distance Tracking', default=${DistanceTrackingType.NONE}, selected=${exercise.distanceTrackType})"></div>
+                                    
+  </div>
+
+
+
+
+  <div th:fragment="weightHistory">
+    <p class="card-text">Weight History <span th:text="${exercise.weightTrackType}"/>:</p>
+    <table th:if="${exercise.weightTrackType != 'NONE'}" class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Set 1</th>
+            <th>Set 2</th>
+            <th>Set 3</th>
+        </tr>
+        </thead>        
+        <tbody>
+            <tr th:each="weights : ${exercise.weightHistory}">
+                <td th:text="${weights[0] != null ? weights[0] : ''}"></td>
+                <td th:text="${weights[1] != null ? weights[1] : ''}"></td>
+                <td th:text="${weights[2] != null ? weights[2] : ''}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(exercise.weightHistory)}">
+                <td colspan="3">No weight history available.</td>
+            </tr>
+    </tbody>
+    </table>
+</div>

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head(pageTitle='Workouts')}"> 
+    <title>Add an exercise</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div class="container" hx-boost="false">
+        <div th:replace="~{fragments/site :: header}"></div>
+        <div th:replace="~{fragments/exercise :: subheader}"></div>
+        <h1>Current</h1>
+        <div th:if="${curWorkout != null}" class="mb-5">
+            <div th:replace="~{fragments/workout :: workoutCard(workout=${curWorkout})}"></div>
+        </div>
+        <div th:unless="${curWorkout != null}" class="text-center mb-5">
+            <a th:href="@{/workout/create}" class="btn btn-primary col-8">New Workout</a>
+        </div>
+        <h1>History</h1>
+        <span th:if="${prevWorkouts.size() != 0}" class="mb-5" th:each="workout: ${prevWorkouts}">
+            <div th:replace="~{fragments/workout :: workoutCard(workout=${workout})}" />
+        </span>
+        <div th:unless="${prevWorkouts.size() != 0}" class="card mb-5">
+            <div class="card text-center">
+                <div class="card-title">
+                    No workout history!
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

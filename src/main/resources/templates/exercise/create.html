@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head(pageTitle='Add an exercise')}"> 
+    <title>Add an exercise</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div class="container-sm">
+        <div th:replace="~{fragments/site :: header}"></div>
+        <div th:replace="~{fragments/exercise :: subheader}"></div>
+        <h1>Let's add an exercise!</h1>
+        <form action="#" th:action="@{/exercise/create}" th:object="${exercise}" method="post" class="col-12">
+            <div th:replace="~{fragments/exercise :: editPage}" />
+            <input type="submit" value="LET'S DO IT!" class="mt-5"/>
+        </form>
+        
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            // $('.form-control-tag').tagEditor({
+            //     initialTags: /*[[${exercise.tags}]]*/ [],
+            //     delimiter: ', ',
+            //     forceLowercase: false,
+            //     animateDelete: 0,
+            //     placeholder: 'Enter tags'
+            // });
+            /*]]>*/
+        </script>
+    </div>
+</body>
+</html>

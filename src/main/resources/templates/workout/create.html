@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head(pageTitle='Create a new workout')}"> 
+    <title>Add an exercise</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div class="container" hx-boost="false">
+        <div th:replace="~{fragments/site :: header}"></div>
+        <div th:replace="~{fragments/exercise :: subheader}"></div>
+        <form action="#" th:action="@{/workout/create}" th:object="${workout}" method="post" class="col-12">
+            <div class="form-group   input-group-lg">
+                <input id="userId" type="hidden" th:field="*{userId}"/>
+                <div class="text-center">
+                    <label for="name">Name</label>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <input id="name" type="text" class="form-control bigtext h-100" th:field="*{name}" />
+                    <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></p>
+                </div>
+            </div>
+            
+            <div class="form-group ">
+                <div class="text-center">
+                    <label for="tags">Tags</label>
+                </div>
+                <div class="input-group d-flex justify-content-around">
+                    <input id="tags" type="text" data-role="tagsinput" class="form-control form-control-tag" th:field="*{joinedTags}" />
+                </div>
+            </div>
+            <div class="justify-content-around col-12 text-center">
+                <button type="submit" name="submitButton" value="random" class="mt-5">Generate random</button>
+                <button type="submit" name="submitButton" value="custom" class="mt-5">Create custom</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

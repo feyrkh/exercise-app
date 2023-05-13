@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head(pageTitle='Create a new workout')}"> 
+    <title>Add an exercise</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div class="container" hx-boost="false">
+        <div th:replace="~{fragments/site :: header}"></div>
+        <div th:replace="~{fragments/exercise :: subheader}"></div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h3 class="card-title" th:text="${workout.name}"></h3>
+                <div th:replace="~{fragments/site :: tags(tags=${workout.tags})}" />
+            </div>
+        </div>
+        <div class="card-body mt-5">
+            <form action="#" th:action="@{'/workout/'+${workout.id}+'/addSet'}" th:object="${workout}" method="post" class="col-12">
+                <div class="exercise-set-fragment-container"></div>
+                <input type="submit" value="Add set" class="ml-2 col-6" />
+                <select name="exerciseId" class="col-5">
+                    <option value="" selected>--select--</option>
+                    <option th:each="exercise : ${taggedExercises}" th:value="${exercise.id}" th:text="${exercise.name}">Exercise Name</option>
+                </select>
+            </form>
+            <form action="#" th:action="@{'/workout/'+${workout.id}+'/addTag'}" th:object="${workout}" method="post" class="col-12">
+                <input type="submit" value="Add tag" class="ml-2 col-6" />
+                <select name="tagName" class="col-5">
+                    <option value="" selected>--select--</option>
+                    <option name="addedTagName"  th:each="tag : ${unusedTags}" th:value="${tag}" th:text="${tag}">Tag Name</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Store a reference to the target element within the form
+            var fragmentContainer = $('.exercise-set-fragment-container');
+
+            // Handle exerciseId dropdown change event
+            $('select[name="exerciseId"]').on('change', function() {
+                var exerciseId = $(this).val();
+                if (exerciseId !== '') {
+                    // Send AJAX request to fetch HTML fragment
+                    $.ajax({
+                        url: '/exercise/' + exerciseId + '/setEditForm',
+                        type: 'GET',
+                        success: function(data) {
+                            // Replace the HTML content of the target element
+                            fragmentContainer.html(data);
+                        },
+                        error: function() {
+                            console.error('Failed to fetch exercise details.');
+                        }
+                    });
+                } else {
+                    // Clear the HTML content when the dropdown is empty
+                    fragmentContainer.empty();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head(pageTitle='Edit an exercise')}"> 
+    <title>Add an exercise</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div class="container-sm">
+        <div th:replace="~{fragments/site :: header}"></div>
+        <div th:replace="~{fragments/exercise :: subheader}"></div>
+        <h1>Let's add an exercise!</h1>
+        <form action="#" th:action="@{/exercise/edit/__*{id}__}" th:object="${exercise}" method="post" class="col-12">
+            <div th:replace="~{fragments/exercise :: editPage(showDelete=${showDelete})}" />
+            <div class="d-flex justify-content-around">
+                <input type="submit" value="LET'S DO IT (AGAIN)!" class="mt-5"/>
+            </div>
+        </form>
+        <p /><p /><p />
+        <form th:if='${showDelete}' th:id="'delete_'+${exercise.id}" th:action="@{/exercise/{id}(id=${exercise.id})}" th:method="delete"> 
+            <span th:attr="onclick=|deleteExercise('${exercise.id}', '${exercise.name}')|">&#128465;&#65039;</span>
+        </form>
+        <script  th:inline="javascript">
+            function deleteExercise(exerciseId, exerciseName) {
+                if(confirm("Are you sure you want to delete "+exerciseName+"? Click 'OK' to delete forever!")) {
+                    $('#delete_'+exerciseId).get(0).requestSubmit();
+                }
+            }
+        </script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            // $('.form-control-tag').tagEditor({
+            //     initialTags: /*[[${exercise.tags}]]*/ [],
+            //     delimiter: ', ',
+            //     forceLowercase: false,
+            //     animateDelete: 0,
+            //     placeholder: 'Enter tags'
+            // });
+            /*]]>*/
+        </script>
+    </div>
+</body>
+</html>
